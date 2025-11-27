@@ -3,6 +3,58 @@
    Light Mode: Soft Grey (Option B)
 */
 
+/* Theme Toggle Switch */
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 55px;
+    height: 28px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    background: var(--muted);
+    border-radius: 28px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background: var(--accent1);
+}
+
+input:checked + .slider:before {
+    transform: translateX(27px);
+}
+
+/* Floating toggle position */
+.floating-theme-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+}
+
 /* Theme variables */
 :root{
     --bg-color: #0a0a0a;
