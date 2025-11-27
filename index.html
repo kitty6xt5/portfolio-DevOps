@@ -12,66 +12,54 @@
 
 <body>
     <!-- Background Effects -->
-    <div class="grid-bg" aria-hidden="true"></div>
-    <div class="gradient-overlay" aria-hidden="true"></div>
-    <div class="scanlines" aria-hidden="true"></div>
+    <div class="grid-bg"></div>
+    <div class="gradient-overlay"></div>
+    <div class="scanlines"></div>
 
     <!-- Shapes -->
-    <div class="shapes-container" aria-hidden="true">
+    <div class="shapes-container">
         <div class="shape shape-circle"></div>
         <div class="shape shape-triangle"></div>
         <div class="shape shape-square"></div>
     </div>
 
-    <div id="particles" aria-hidden="true"></div>
+    <div id="particles"></div>
 
-    <!-- Navigation -->
-    <nav id="navbar" role="navigation">
+    <!-- NAVBAR -->
+    <nav id="navbar">
         <div class="nav-container">
-            <a href="#home" class="logo-link" aria-label="Home">
-                <svg class="logo-svg" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#FF5E00;" />
-                            <stop offset="100%" style="stop-color:#00B2FF;" />
-                        </linearGradient>
-                    </defs>
-                    <polygon points="20,2 38,14 38,26 20,38 2,26 2,14" fill="none" stroke="url(#logoGradient)" stroke-width="2"/>
-                    <polygon points="20,8 32,16 32,24 20,32 8,24 8,16" fill="url(#logoGradient)" opacity="0.3"/>
-                    <circle cx="20" cy="20" r="3" fill="url(#logoGradient)" />
-                </svg>
+
+            <!-- LOGO REMOVED — ONLY NAME -->
+            <a href="#home" class="logo-link">
                 <span class="logo-text">Kausthubh Swami</span>
             </a>
 
-            <ul class="nav-links" id="navLinks" role="menubar">
-                <li role="none"><a role="menuitem" href="#home" class="nav-link">Home</a></li>
-                <li role="none"><a role="menuitem" href="#skills" class="nav-link">Skills</a></li>
-                <li role="none"><a role="menuitem" href="#projects" class="nav-link">Projects</a></li>
-                <li role="none"><a role="menuitem" href="#education" class="nav-link">Education</a></li>
-                <li role="none"><a role="menuitem" href="#achievements" class="nav-link">Achievements</a></li>
-                <li role="none"><a role="menuitem" href="#contact" class="nav-link">Contact</a></li>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#achievements" class="nav-link">Achievements</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
 
-            <!-- Sliding Toggle (Navbar - desktop) -->
-            <div class="theme-switch theme-switch-nav" id="themeSwitchNav" aria-label="Toggle theme" role="button" tabindex="0" aria-pressed="false">
-                <div class="toggle-track" aria-hidden="true">
-                    <!-- emoji inside the thumb -->
-                    <div class="toggle-thumb" id="toggleThumbNav" aria-hidden="true">🌙</div>
+            <!-- FINAL THEME SWITCH (DESKTOP + MOBILE) -->
+            <div class="theme-switch" id="themeSwitchNav">
+                <div class="toggle-track">
+                    <div class="toggle-thumb" id="toggleThumbNav">🌙</div>
                 </div>
-                <span class="theme-label" id="themeLabelNav" aria-hidden="true"> </span>
             </div>
 
-            <div class="menu-toggle" id="menuToggle" aria-label="Toggle menu" role="button" tabindex="0">
+            <div class="menu-toggle" id="menuToggle">
                 <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home" tabindex="-1">
+    <!-- HERO -->
+    <section class="hero" id="home">
         <div class="hero-content">
-
-            <div class="text-rotator" aria-live="polite">
+            <div class="text-rotator">
                 <div class="text-set active">
                     <h1 class="glitch-text" data-text="DevOps Engineer">DevOps Engineer</h1>
                     <p class="subtitle">Enter the next dimension of automation & cloud engineering</p>
@@ -87,54 +75,53 @@
             </div>
         </div>
 
-        <div class="cta-container" role="region" aria-label="Primary actions">
-            <a href="https://github.com/kitty6xt5" target="_blank" rel="noopener" class="cta-button cta-primary">My GitHub</a>
-            <a href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener" class="cta-button cta-secondary">My LinkedIn</a>
+        <div class="cta-container">
+            <a href="https://github.com/kitty6xt5" target="_blank" class="cta-button cta-primary">My GitHub</a>
+            <a href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" class="cta-button cta-secondary">My LinkedIn</a>
         </div>
     </section>
 
-    <!-- Technical Skills -->
+    <!-- SKILLS -->
     <section class="features" id="skills">
         <h2 class="section-title">Technical Skills</h2>
 
         <div class="features-container">
-
-            <div class="feature-tabs" role="tablist">
-                <div class="tab-item active" data-tab="os" role="tab" tabindex="0">Operating Systems</div>
-                <div class="tab-item" data-tab="cloud" role="tab" tabindex="0">Cloud Platform</div>
-                <div class="tab-item" data-tab="network" role="tab" tabindex="0">Networking & Database</div>
-                <div class="tab-item" data-tab="tools" role="tab" tabindex="0">DevOps Tools</div>
-                <div class="tab-item" data-tab="monitor" role="tab" tabindex="0">Monitoring</div>
-                <div class="tab-item" data-tab="core" role="tab" tabindex="0">Core Strengths</div>
+            <div class="feature-tabs">
+                <div class="tab-item active" data-tab="os">Operating Systems</div>
+                <div class="tab-item" data-tab="cloud">Cloud Platform</div>
+                <div class="tab-item" data-tab="network">Networking & Database</div>
+                <div class="tab-item" data-tab="tools">DevOps Tools</div>
+                <div class="tab-item" data-tab="monitor">Monitoring</div>
+                <div class="tab-item" data-tab="core">Core Strengths</div>
             </div>
 
             <div class="feature-content">
-                <div class="content-panel active" id="os" role="tabpanel">
+                <div class="content-panel active" id="os">
                     <h3>Operating Systems</h3>
                     <p>Linux, Windows</p>
                 </div>
 
-                <div class="content-panel" id="cloud" role="tabpanel">
+                <div class="content-panel" id="cloud">
                     <h3>Cloud Platform</h3>
                     <p>AWS</p>
                 </div>
 
-                <div class="content-panel" id="network" role="tabpanel">
+                <div class="content-panel" id="network">
                     <h3>Networking & Database</h3>
                     <p>Load Balancer, MySQL</p>
                 </div>
 
-                <div class="content-panel" id="tools" role="tabpanel">
+                <div class="content-panel" id="tools">
                     <h3>DevOps Tools</h3>
                     <p>Docker, Kubernetes</p>
                 </div>
 
-                <div class="content-panel" id="monitor" role="tabpanel">
-                    <h3>Monitoring & Logging</h3>
+                <div class="content-panel" id="monitor">
+                    <h3>Monitoring</h3>
                     <p>CloudWatch</p>
                 </div>
 
-                <div class="content-panel" id="core" role="tabpanel">
+                <div class="content-panel" id="core">
                     <h3>Core Strengths</h3>
                     <ul class="feature-list">
                         <li>Automation</li>
@@ -147,129 +134,101 @@
         </div>
     </section>
 
-    <!-- Experience -->
-    <section class="about" id="experience" aria-labelledby="experience-heading">
+    <!-- EXPERIENCE -->
+    <section class="about" id="experience">
         <div class="about-content">
             <div class="about-text">
-                <h2 id="experience-heading">Experience</h2>
+                <h2>Experience</h2>
                 <h3>DevOps Intern (Jan 2025 – Jun 2025)</h3>
                 <p><b>Upflairs Private Limited — Jaipur, Rajasthan</b></p>
-
                 <ul class="feature-list">
-                    <li>Trained in AWS services such as EC2, S3, VPC, IAM, CloudWatch and Terraform to automate and scale infrastructure.</li>
-                    <li>Configured and managed MySQL databases in AWS, ensuring high availability and creating CloudWatch alarms for performance monitoring.</li>
-                    <li>Gained experience in containerization with Docker, Kubernetes management, and automating server configuration with Ansible.</li>
+                    <li>AWS EC2, S3, VPC, IAM, CloudWatch, Terraform.</li>
+                    <li>MySQL management + CloudWatch alarms.</li>
+                    <li>Docker, Kubernetes, Ansible.</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- Projects -->
-    <section class="about" id="projects" aria-labelledby="projects-heading">
+    <!-- PROJECTS -->
+    <section class="about" id="projects">
         <div class="about-content">
             <div class="about-text">
-                <h2 id="projects-heading">Projects</h2>
+                <h2>Projects</h2>
 
-                <h3>Custom LoadBalancer with EC2 Instances | AWS Project</h3>
-                <p><b>Tools and Technologies Used:</b> Nginx, AWS Load Balancer, EC2</p>
+                <h3>Custom LoadBalancer with EC2</h3>
+                <p><b>Tools:</b> Nginx, AWS LB, EC2</p>
                 <ul class="feature-list">
-                    <li>Developed a cost-effective custom load balancer using Nginx on AWS EC2 instances, enabling reliable traffic distribution while reducing operational expenses.</li>
-                    <li>Reduced deployment time by 30% through automation, resulting in faster software release and improved collaboration among development and operations teams through streamlined workflows.</li>
+                    <li>Custom load balancer using Nginx on EC2.</li>
+                    <li>Reduced deployment time by 30% via automation.</li>
                 </ul>
 
-                <br>
-
-                <h3>HTML Website Hosting with MySQL Replication | Database Project</h3>
-                <p><b>Tools and Technologies Used:</b> AWS, EC2, Apache Server, MySQL</p>
+                <h3>HTML Hosting with MySQL Replication</h3>
+                <p><b>Tools:</b> AWS, EC2, Apache, MySQL</p>
                 <ul class="feature-list">
-                    <li>Implemented MySQL master-slave replication to enhance scalability and ensure data consistency across instances.</li>
-                    <li>Deployed and hosted a dynamic HTML website backed by a replicated MySQL database.</li>
+                    <li>MySQL master-slave replication.</li>
+                    <li>Hosted replicated database website.</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- Education -->
-    <section class="about" id="education" aria-labelledby="education-heading">
+    <!-- EDUCATION -->
+    <section class="about" id="education">
         <div class="about-content">
             <div class="about-text">
-                <h2 id="education-heading">Education</h2>
+                <h2>Education</h2>
+                <p><b>JECRC — Jaipur</b><br>B.Tech CSE — May 2025</p>
 
-                <p><b>Jaipur Engineering College and Research Centre — Jaipur, Rajasthan</b><br>
-                Bachelor of Technology in Computer Science — <i>May 2025</i></p>
+                <p><b>BTTI — Pilani</b><br>Diploma Mechanical — 2018–2021</p>
 
-                <p><b>Birla Technical Training Institute — Pilani, Rajasthan</b><br>
-                Diploma in Mechanical Engineering — <i>2018 – Sep 2021</i></p>
-
-                <p><b>Emmanuel Mission Secondary School — Kotputli, Jaipur</b><br>
-                Secondary Education — <i>Completed June 2018</i></p>
+                <p><b>Emmanuel School</b><br>Completed 2018</p>
             </div>
         </div>
     </section>
 
-    <!-- Achievements -->
-    <section class="about" id="achievements" aria-labelledby="achievements-heading">
+    <!-- ACHIEVEMENTS -->
+    <section class="about" id="achievements">
         <div class="about-content">
             <div class="about-text">
-                <h2 id="achievements-heading">Achievements</h2>
-
+                <h2>Achievements</h2>
                 <ul class="feature-list">
-                    <li>Published a research paper titled <b>"Cloud Computing Platforms: A Comprehensive Research"</b> in the ISSN-indexed Pratibodh Journal for the National Conference NCICT 2025 — Published June 7, 2025. Accessible at: <a href="https://pratibodh.org/index.php/pratibodh/article/view/263" target="_blank" rel="noopener">Pratibodh Journal</a>.</li>
-
-                    <li>Earned an A Grade in the National Level Adventure Programme organized by the Indian Adventure Foundation. Successfully trekked 45 kilometers, reaching an altitude of 7,227 feet in the Himalayas (Program date: 28-01-2019).</li>
-
-                    <li>Received the Rashtrapati Award Training Certificate from Bharat Scouts & Guides on 30-06-2018.</li>
-
-                    <li>Achieved the Rajya Puruskar Award from Bharat Scouts & Guides, Rajasthan, on 22-02-2017.</li>
+                    <li>Published research paper — NCICT 2025.</li>
+                    <li>Trekked 45 km to 7,227 feet — A Grade.</li>
+                    <li>Rashtrapati Award Training.</li>
+                    <li>Rajya Puruskar Award.</li>
                 </ul>
             </div>
         </div>
     </section>
 
-    <!-- Contact -->
-    <section class="contact" id="contact" aria-labelledby="contact-heading">
-        <h2 class="section-title" id="contact-heading">Connect With Me</h2>
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Connect With Me</h2>
+
         <div class="contact-container">
-
             <div class="contact-info">
                 <h3>Contact Details</h3>
 
-                <div class="info-item">
-                    <div class="info-details">
-                        <h4>Email</h4>
-                        <p><a href="mailto:kausthubhswami@gmail.com">kausthubhswami@gmail.com</a></p>
-                    </div>
-                </div>
+                <h4>Email</h4>
+                <p><a href="mailto:kausthubhswami@gmail.com">kausthubhswami@gmail.com</a></p>
 
-                <div class="info-item">
-                    <div class="info-details">
-                        <h4>GitHub</h4>
-                        <p><a href="https://github.com/kitty6xt5" target="_blank" rel="noopener">github.com/kitty6xt5</a></p>
-                    </div>
-                </div>
+                <h4>GitHub</h4>
+                <p><a href="https://github.com/kitty6xt5">github.com/kitty6xt5</a></p>
 
-                <div class="info-item">
-                    <div class="info-details">
-                        <h4>Location</h4>
-                        <p>Jaipur, Rajasthan</p>
-                    </div>
-                </div>
-
+                <h4>Location</h4>
+                <p>Jaipur, Rajasthan</p>
             </div>
-
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <footer>
         <div class="footer-content">
-            <p class="copyright">
-                © 2025 Kausthubh Swami | All Rights Reserved
-            </p>
+            <p>© 2025 Kausthubh Swami | All Rights Reserved</p>
         </div>
     </footer>
 
-    <!-- Scripts -->
     <script src="templatemo-electric-scripts.js"></script>
 </body>
 </html>
