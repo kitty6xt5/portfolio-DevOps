@@ -47,12 +47,20 @@ input:checked + .slider:before {
     transform: translateX(27px);
 }
 
-/* Floating toggle position */
+/* Floating Toggle Position — move lower */
 .floating-theme-toggle {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 40px;   /* adjust lower/higher */
+    right: 20px;    /* adjust left/right */
     z-index: 9999;
+}
+
+/* Make sure floating toggle never overlaps header */
+@media (max-width: 600px) {
+    .floating-theme-toggle {
+        bottom: 30px;
+        right: 20px;
+    }
 }
 
 /* Theme variables */
