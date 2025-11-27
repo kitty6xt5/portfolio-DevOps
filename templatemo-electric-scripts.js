@@ -1,16 +1,13 @@
 /* ============================================================
-templatemo-electric-scripts.js (Full Rewritten Version)
-Floating toggle removed (ONLY change requested)
+templatemo-electric-scripts.js (FULL VERSION WITH GLITCH TEXT)
+Floating toggle removed
 ============================================================ */
 
 /* -------------------------------
 THEME INITIALIZATION
 ---------------------------------- */
 
-// Detect system theme
 const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
-
-// Load saved theme OR use system theme
 let savedTheme = localStorage.getItem("theme");
 
 if (savedTheme === "light") {
@@ -21,19 +18,14 @@ if (savedTheme === "light") {
     if (prefersLight) document.body.classList.add("light-mode");
 }
 
-// Elements for theme toggle
 const navToggle = document.getElementById("themeToggleNav");
 
-// Sync toggle thumb positions on load
 function syncToggles() {
     const isLight = document.body.classList.contains("light-mode");
-
     if (navToggle) navToggle.checked = isLight;
 }
-
 syncToggles();
 
-// Animated background transition helper
 function animateBackgroundTransition() {
     document.body.classList.add("theme-transitioning");
     setTimeout(() => {
@@ -41,10 +33,8 @@ function animateBackgroundTransition() {
     }, 800);
 }
 
-// Toggle theme function
 function toggleTheme(isLight) {
     animateBackgroundTransition();
-
     if (isLight) {
         document.body.classList.add("light-mode");
         localStorage.setItem("theme", "light");
@@ -52,11 +42,9 @@ function toggleTheme(isLight) {
         document.body.classList.remove("light-mode");
         localStorage.setItem("theme", "dark");
     }
-
     syncToggles();
 }
 
-// Add listener
 if (navToggle) {
     navToggle.addEventListener("change", (e) => toggleTheme(e.target.checked));
 }
@@ -82,7 +70,6 @@ menuToggle.addEventListener("click", () => {
     navLinks.classList.toggle("active");
 });
 
-/* Close menu on nav click (mobile) */
 document.querySelectorAll(".nav-link").forEach((link) => {
     link.addEventListener("click", () => {
         menuToggle.classList.remove("active");
@@ -91,7 +78,7 @@ document.querySelectorAll(".nav-link").forEach((link) => {
 });
 
 /* -------------------------------
-SECTION HIGHLIGHT ON SCROLL
+SCROLL ACTIVE SECTION
 ---------------------------------- */
 const sections = document.querySelectorAll("section");
 const navItems = document.querySelectorAll(".nav-link");
@@ -105,30 +92,98 @@ window.addEventListener("scroll", () => {
             scrollPos < sec.offsetTop + sec.offsetHeight
         ) {
             navItems.forEach((link) => link.classList.remove("active"));
-            let activeLink = document.querySelector(
-                `a[href="#${sec.id}"]`
-            );
+            const activeLink = document.querySelector(`a[href="#${sec.id}"]`);
             if (activeLink) activeLink.classList.add("active");
         }
     });
 });
 
-/* -------------------------------
-HERO TEXT ROTATOR
----------------------------------- */
-let textSets = document.querySelectorAll(".text-set");
-let currentTextIndex = 0;
+/* ============================================================
+GLITCH ANIMATION SYSTEM FOR HERO TEXT (ADDED)
+============================================================ */
 
-function rotateText() {
-    textSets[currentTextIndex].classList.remove("active");
-    currentTextIndex = (currentTextIndex + 1) % textSets.length;
-    textSets[currentTextIndex].classList.add("active");
+const textSets = document.querySelectorAll(".text-set");
+let currentIndex = 0;
+let isAnimating = false;
+
+function wrapTextInSpans(element) {
+    const text = element.textContent;
+    element.innerHTML = text
+        .split("")
+        .map(
+            (char, i) =>
+                `<span class="char" style="animation-delay:${i * 0.05}s">${
+                    char === " " ? "&nbsp;" : char
+                }</span>`
+        )
+        .join("");
 }
 
-setInterval(rotateText, 3500);
+function animateTextIn(textSet) {
+    const glitchText = textSet.querySelector(".glitch-text");
+    const subtitle = textSet.querySelector(".subtitle");
+
+    wrapTextInSpans(glitchText);
+    glitchText.setAttribute("data-text", glitchText.textContent);
+
+    setTimeout(() => {
+        subtitle.classList.add("visible");
+    }, 800);
+}
+
+function animateTextOut(textSet) {
+    const chars = textSet.querySelectorAll(".char");
+    const subtitle = textSet.querySelector(".subtitle");
+
+    chars.forEach((char, i) => {
+        char.style.animationDelay = `${i * 0.02}s`;
+        char.classList.add("out");
+    });
+
+    subtitle.classList.remove("visible");
+}
+
+function rotateGlitchText() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    const currentSet = textSets[currentIndex];
+    const nextIndex = (currentIndex + 1) % textSets.length;
+    const nextSet = textSets[nextIndex];
+
+    animateTextOut(currentSet);
+
+    setTimeout(() => {
+        currentSet.classList.remove("active");
+        nextSet.classList.add("active");
+        animateTextIn(nextSet);
+        currentIndex = nextIndex;
+        isAnimating = false;
+    }, 600);
+}
+
+textSets[0].classList.add("active");
+animateTextIn(textSets[0]);
+
+setTimeout(() => {
+    setInterval(rotateGlitchText, 5000);
+}, 4000);
+
+/* Random glitch flicker */
+setInterval(() => {
+    const glitchTexts = document.querySelectorAll(".glitch-text");
+    glitchTexts.forEach((text) => {
+        if (Math.random() > 0.95) {
+            text.style.animation = "none";
+            setTimeout(() => {
+                text.style.animation = "";
+            }, 200);
+        }
+    });
+}, 3000);
 
 /* -------------------------------
-SKILLS / PROJECTS TABS
+TABS
 ---------------------------------- */
 const tabItems = document.querySelectorAll(".tab-item");
 const contentPanels = document.querySelectorAll(".content-panel");
@@ -144,7 +199,7 @@ tabItems.forEach((tab, index) => {
 });
 
 /* -------------------------------
-PARTICLES BACKGROUND ANIMATION
+PARTICLES
 ---------------------------------- */
 function createParticle() {
     let particle = document.createElement("div");
@@ -156,29 +211,18 @@ function createParticle() {
     particle.style.left = `${Math.random() * 100}%`;
 
     document.body.appendChild(particle);
-
     setTimeout(() => particle.remove(), 15000);
 }
-
 setInterval(createParticle, 500);
 
 /* -------------------------------
-SMOOTH SCROLL FOR INTERNAL LINKS
+SMOOTH SCROLL
 ---------------------------------- */
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     anchor.addEventListener("click", function (e) {
-        if (!this.getAttribute("href").startsWith("#")) return;
-
         e.preventDefault();
-
-        document
-            .querySelector(this.getAttribute("href"))
-            .scrollIntoView({
-                behavior: "smooth",
-            });
+        document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+        });
     });
 });
-
-/* -------------------------------
-END OF FULL JS FILE
----------------------------------- */
