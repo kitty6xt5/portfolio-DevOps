@@ -1,7 +1,73 @@
 /* Rewritten CSS with theme variables, toggle styles, and animated background transitions
 Light Mode: Soft Grey (Option B)
 */
+/* GLITCH BASE */
+.glitch-text {
+    position: relative;
+    display: inline-block;
+    color: var(--text-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 3rem;
+    letter-spacing: 2px;
+    animation: flicker 3s infinite;
+    opacity: 1;
+}
 
+/* RGB LAYERS */
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0.7;
+    mix-blend-mode: screen;
+}
+
+.glitch-text::before {
+    color: #ff0040;
+    transform: translate(3px, 0);
+    animation: glitchBefore 2s infinite;
+}
+
+.glitch-text::after {
+    color: #00eaff;
+    transform: translate(-3px, 0);
+    animation: glitchAfter 2.3s infinite;
+}
+
+/* STRONG GLITCH SHAKES */
+@keyframes glitchBefore {
+    0% { transform: translate(3px, 0); }
+    20% { transform: translate(-3px, -2px); }
+    40% { transform: translate(3px, 2px); }
+    60% { transform: translate(-2px, 0); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(3px, 0); }
+}
+
+@keyframes glitchAfter {
+    0% { transform: translate(-3px, 0); }
+    20% { transform: translate(2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(3px, 1px); }
+    80% { transform: translate(-3px, 2px); }
+    100% { transform: translate(-3px, 0); }
+}
+
+/* FLICKER EFFECT */
+@keyframes flicker {
+    0%, 19%, 21%, 23%, 80%, 100% { opacity: 1; }
+    20%, 22% { opacity: 0.2; }
+}
+
+/* LETTER OUT ANIMATION */
+.char.out {
+    opacity: 0;
+    transform: translateY(-20px);
+    filter: blur(4px);
+}
 /* Theme variables */
 :root{
     --bg-color: #0a0a0a;
