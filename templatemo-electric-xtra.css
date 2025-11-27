@@ -28,7 +28,7 @@
     --muted: rgba(11,18,32,0.7);
 }
 
-/* Smooth transitions for theme toggles */
+/* Smooth transitions for theme toggles & basics */
 * { transition: background var(--transition-medium) ease, color var(--transition-medium) ease; }
 
 /* Base reset */
@@ -101,10 +101,10 @@ body {
 
 /* ---------- Navigation ---------- */
 nav {
-    position: fixed; top:0; width:100%; padding:20px 50px; background: var(--nav-bg); backdrop-filter: blur(10px);
+    position: fixed; top:0; width:100%; padding:18px 50px; background: var(--nav-bg); backdrop-filter: blur(10px);
     z-index:1000; transition: all var(--transition-fast) ease; border-bottom: 1px solid rgba(255,94,0,0.06);
 }
-nav.scrolled { padding:15px 50px; box-shadow: 0 5px 30px rgba(255,94,0,0.06); }
+nav.scrolled { padding:14px 50px; box-shadow: 0 5px 30px rgba(255,94,0,0.06); }
 
 .nav-container { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; }
 
@@ -202,7 +202,7 @@ footer { background: rgba(0,0,0,0.06); border-top:1px solid rgba(255,94,0,0.03);
 
 /* ---------- Responsive ---------- */
 @media (max-width: 768px) {
-    nav { padding:15px 20px; }
+    nav { padding:12px 18px; } /* reduced padding so header doesn't push content down */
     .nav-links { position: fixed; top:70px; left:-100%; width:100%; height: calc(100vh - 70px); background: var(--nav-bg); flex-direction: column; align-items:center; justify-content:start; padding-top:50px; transition:left var(--transition-fast) ease; }
     .nav-links.active { left:0; }
     .menu-toggle { display:flex; }
@@ -220,11 +220,12 @@ footer { background: rgba(0,0,0,0.06); border-top:1px solid rgba(255,94,0,0.03);
     .shape-circle, .shape-triangle, .shape-square { transform: scale(0.6); }
 }
 
-/* ---------- Theme toggle styles (sliding toggle + floating) ---------- */
+/* ---------- Theme toggle styles (sliding toggle) ---------- */
 .theme-switch {
     display:flex; align-items:center; gap:10px; cursor:pointer; user-select:none;
 }
 
+/* track style */
 .theme-switch .toggle-track {
     width:56px; height:28px; border-radius:14px;
     background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(0,0,0,0.03));
@@ -241,7 +242,7 @@ footer { background: rgba(0,0,0,0.06); border-top:1px solid rgba(255,94,0,0.03);
     transition: transform 0.28s cubic-bezier(.2,.9,.2,1), background var(--transition-fast) ease;
 }
 
-/* Navbar toggle */
+/* Ensure navbar toggle visible on all screens */
 .theme-switch-nav { display:flex; align-items:center; gap:8px; margin-left:18px; }
 .theme-switch-nav .toggle-track { background: linear-gradient(90deg, rgba(0,0,0,0.06), rgba(255,255,255,0.02)); border-color: rgba(255,94,0,0.06); }
 .theme-switch-nav .theme-label { font-size:16px; color:var(--muted); }
@@ -250,16 +251,21 @@ footer { background: rgba(0,0,0,0.06); border-top:1px solid rgba(255,94,0,0.03);
 body:not(.light-mode) .theme-switch .toggle-thumb { transform: translateX(0); background: var(--bg-color); color: var(--text-color); }
 body.light-mode .theme-switch .toggle-thumb { transform: translateX(28px); background: var(--accent1); color: #ffffff; }
 
-/* Icon labels */
-.theme-switch .theme-label { font-size:16px; color: var(--muted); transition: color var(--transition-fast) ease; }
-
 /* Accessible focus styles */
-.theme-switch:focus, .theme-switch-nav:focus, .theme-switch-floating:focus { outline:3px solid rgba(0,178,255,0.08); outline-offset:4px; }
+.theme-switch:focus, .theme-switch-nav:focus { outline:3px solid rgba(0,178,255,0.08); outline-offset:4px; }
 
 /* Reduce heavy neon in light mode */
 body.light-mode .logo-text { text-shadow:none; -webkit-text-fill-color: var(--text-color); }
 
 /* Helper to indicate theme change in progress */
 body.theme-transitioning { transition: background 0.6s ease-in-out; }
+
+/* small helper to fix header layout on very small screens if needed */
+@media (max-width: 420px) {
+    nav { padding:10px 12px; }
+    .logo-text { font-size:18px; }
+    .theme-switch .toggle-thumb { font-size:12px; width:20px; height:20px; }
+    body.light-mode .theme-switch .toggle-thumb { transform: translateX(26px); }
+}
 
 /* End of CSS */
