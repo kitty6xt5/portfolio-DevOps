@@ -24,12 +24,12 @@ const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
 let savedTheme = localStorage.getItem("theme");
 
 if (savedTheme === "light") {
-document.body.classList.add("light-mode");
+    document.body.classList.add("light-mode");
 } else if (savedTheme === "dark") {
-document.body.classList.remove("light-mode");
+    document.body.classList.remove("light-mode");
 } else {
-// Use system theme
-if (prefersLight) document.body.classList.add("light-mode");
+    // Use system theme
+    if (prefersLight) document.body.classList.add("light-mode");
 }
 
 // Elements for theme toggle
@@ -38,53 +38,53 @@ const floatToggle = document.getElementById("themeToggleFloating");
 
 // Sync toggle thumb positions on load
 function syncToggles() {
-const isLight = document.body.classList.contains("light-mode");
+    const isLight = document.body.classList.contains("light-mode");
 
-if (navToggle) navToggle.checked = isLight;  
-if (floatToggle) floatToggle.checked = isLight;
-
+    if (navToggle) navToggle.checked = isLight;
+    if (floatToggle) floatToggle.checked = isLight;
 }
+
 syncToggles();
 
 // Animated background transition helper
 function animateBackgroundTransition() {
-document.body.classList.add("theme-transitioning");
-setTimeout(() => {
-document.body.classList.remove("theme-transitioning");
-}, 800);
+    document.body.classList.add("theme-transitioning");
+    setTimeout(() => {
+        document.body.classList.remove("theme-transitioning");
+    }, 800);
 }
 
 // Toggle theme function
 function toggleTheme(isLight) {
-animateBackgroundTransition();
+    animateBackgroundTransition();
 
-if (isLight) {  
-    document.body.classList.add("light-mode");  
-    localStorage.setItem("theme", "light");  
-} else {  
-    document.body.classList.remove("light-mode");  
-    localStorage.setItem("theme", "dark");  
-}  
+    if (isLight) {
+        document.body.classList.add("light-mode");
+        localStorage.setItem("theme", "light");
+    } else {
+        document.body.classList.remove("light-mode");
+        localStorage.setItem("theme", "dark");
+    }
 
-syncToggles();
-
+    syncToggles();
 }
 
 // Add listeners
 if (navToggle) {
-navToggle.addEventListener("change", (e) => toggleTheme(e.target.checked));
+    navToggle.addEventListener("change", (e) => toggleTheme(e.target.checked));
 }
 if (floatToggle) {
-floatToggle.addEventListener("change", (e) => toggleTheme(e.target.checked));
+    floatToggle.addEventListener("change", (e) => toggleTheme(e.target.checked));
 }
 
 /* -------------------------------
 NAVBAR SCROLL EFFECT
 ---------------------------------- */
 const navbar = document.getElementById("navbar");
+
 window.addEventListener("scroll", () => {
-if (window.scrollY > 50) navbar.classList.add("scrolled");
-else navbar.classList.remove("scrolled");
+    if (window.scrollY > 50) navbar.classList.add("scrolled");
+    else navbar.classList.remove("scrolled");
 });
 
 /* -------------------------------
@@ -94,16 +94,16 @@ const menuToggle = document.getElementById("menuToggle");
 const navLinks = document.getElementById("navLinks");
 
 menuToggle.addEventListener("click", () => {
-menuToggle.classList.toggle("active");
-navLinks.classList.toggle("active");
+    menuToggle.classList.toggle("active");
+    navLinks.classList.toggle("active");
 });
 
 /* Close menu on nav click (mobile) */
-document.querySelectorAll(".nav-link").forEach(link => {
-link.addEventListener("click", () => {
-menuToggle.classList.remove("active");
-navLinks.classList.remove("active");
-});
+document.querySelectorAll(".nav-link").forEach((link) => {
+    link.addEventListener("click", () => {
+        menuToggle.classList.remove("active");
+        navLinks.classList.remove("active");
+    });
 });
 
 /* -------------------------------
@@ -113,16 +113,20 @@ const sections = document.querySelectorAll("section");
 const navItems = document.querySelectorAll(".nav-link");
 
 window.addEventListener("scroll", () => {
-let scrollPos = window.scrollY + 150;
+    let scrollPos = window.scrollY + 150;
 
-sections.forEach(sec => {  
-    if (scrollPos > sec.offsetTop && scrollPos < sec.offsetTop + sec.offsetHeight) {  
-        navItems.forEach(link => link.classList.remove("active"));  
-        let activeLink = document.querySelector(`a[href="#${sec.id}"]`);  
-        if (activeLink) activeLink.classList.add("active");  
-    }  
-});
-
+    sections.forEach((sec) => {
+        if (
+            scrollPos > sec.offsetTop &&
+            scrollPos < sec.offsetTop + sec.offsetHeight
+        ) {
+            navItems.forEach((link) => link.classList.remove("active"));
+            let activeLink = document.querySelector(
+                `a[href="#${sec.id}"]`
+            );
+            if (activeLink) activeLink.classList.add("active");
+        }
+    });
 });
 
 /* -------------------------------
@@ -132,10 +136,11 @@ let textSets = document.querySelectorAll(".text-set");
 let currentTextIndex = 0;
 
 function rotateText() {
-textSets[currentTextIndex].classList.remove("active");
-currentTextIndex = (currentTextIndex + 1) % textSets.length;
-textSets[currentTextIndex].classList.add("active");
+    textSets[currentTextIndex].classList.remove("active");
+    currentTextIndex = (currentTextIndex + 1) % textSets.length;
+    textSets[currentTextIndex].classList.add("active");
 }
+
 setInterval(rotateText, 3500);
 
 /* -------------------------------
@@ -145,32 +150,30 @@ const tabItems = document.querySelectorAll(".tab-item");
 const contentPanels = document.querySelectorAll(".content-panel");
 
 tabItems.forEach((tab, index) => {
-tab.addEventListener("click", () => {
-tabItems.forEach(t => t.classList.remove("active"));
-tab.classList.add("active");
+    tab.addEventListener("click", () => {
+        tabItems.forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
 
-contentPanels.forEach(c => c.classList.remove("active"));  
-    contentPanels[index].classList.add("active");  
-});
-
+        contentPanels.forEach((c) => c.classList.remove("active"));
+        contentPanels[index].classList.add("active");
+    });
 });
 
 /* -------------------------------
 PARTICLES BACKGROUND ANIMATION
 ---------------------------------- */
 function createParticle() {
-let particle = document.createElement("div");
-particle.classList.add("particle");
+    let particle = document.createElement("div");
+    particle.classList.add("particle");
 
-let size = Math.random() * 4 + 2;  
-particle.style.width = `${size}px`;  
-particle.style.height = `${size}px`;  
-particle.style.left = `${Math.random() * 100}%`;  
+    let size = Math.random() * 4 + 2;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    particle.style.left = `${Math.random() * 100}%`;
 
-document.body.appendChild(particle);  
+    document.body.appendChild(particle);
 
-setTimeout(() => particle.remove(), 15000);
-
+    setTimeout(() => particle.remove(), 15000);
 }
 
 setInterval(createParticle, 500);
@@ -178,16 +181,18 @@ setInterval(createParticle, 500);
 /* -------------------------------
 SMOOTH SCROLL FOR INTERNAL LINKS
 ---------------------------------- */
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-anchor.addEventListener("click", function (e) {
-if (!this.getAttribute("href").startsWith("#")) return;
-e.preventDefault();
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+        if (!this.getAttribute("href").startsWith("#")) return;
 
-document.querySelector(this.getAttribute("href")).scrollIntoView({  
-        behavior: "smooth"  
-    });  
-});
+        e.preventDefault();
 
+        document
+            .querySelector(this.getAttribute("href"))
+            .scrollIntoView({
+                behavior: "smooth",
+            });
+    });
 });
 
 /* -------------------------------
