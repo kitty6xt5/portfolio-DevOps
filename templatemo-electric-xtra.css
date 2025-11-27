@@ -1,4 +1,3 @@
-
 /* Rewritten CSS with theme variables, toggle styles, and animated background transitions
    Light Mode: Soft Grey (Option B)
 */
@@ -233,9 +232,13 @@ footer { background: rgba(0,0,0,0.06); border-top:1px solid rgba(255,94,0,0.03);
     display:flex; align-items:center;
 }
 
+/* UPDATED thumb styles: emoji inside, centered, slides on light-mode */
 .theme-switch .toggle-thumb {
-    width:22px; height:22px; background: var(--bg-color); border-radius:50%; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    transform: translateX(0); transition: transform 0.28s cubic-bezier(.2,.9,.2,1), background var(--transition-fast) ease;
+    width:22px; height:22px; background: var(--bg-color); border-radius:50%; position:absolute; top:3px; left:3px;
+    display:flex; align-items:center; justify-content:center; font-size:14px; line-height:1;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    transform: translateX(0);
+    transition: transform 0.28s cubic-bezier(.2,.9,.2,1), background var(--transition-fast) ease;
 }
 
 /* Navbar toggle */
@@ -243,19 +246,9 @@ footer { background: rgba(0,0,0,0.06); border-top:1px solid rgba(255,94,0,0.03);
 .theme-switch-nav .toggle-track { background: linear-gradient(90deg, rgba(0,0,0,0.06), rgba(255,255,255,0.02)); border-color: rgba(255,94,0,0.06); }
 .theme-switch-nav .theme-label { font-size:16px; color:var(--muted); }
 
-/* Floating toggle */
-.theme-switch-floating {
-    position: fixed; right:20px; bottom:24px; z-index:1200; display:none; align-items:center; gap:8px;
-    padding:6px; border-radius:999px; background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
-    border:1px solid rgba(255,255,255,0.03);
-}
-@media (max-width:768px) {
-    .theme-switch-floating { display:flex; }
-}
-
-/* Thumb positions for light/dark */
-body:not(.light-mode) .theme-switch .toggle-thumb { transform: translateX(0); background: var(--bg-color); }
-body.light-mode .theme-switch .toggle-thumb { transform: translateX(28px); background: var(--accent1); }
+/* Thumb positions for light/dark: slide right in light mode */
+body:not(.light-mode) .theme-switch .toggle-thumb { transform: translateX(0); background: var(--bg-color); color: var(--text-color); }
+body.light-mode .theme-switch .toggle-thumb { transform: translateX(28px); background: var(--accent1); color: #ffffff; }
 
 /* Icon labels */
 .theme-switch .theme-label { font-size:16px; color: var(--muted); transition: color var(--transition-fast) ease; }
