@@ -1,6 +1,62 @@
 /* Rewritten CSS with theme variables, toggle styles, and animated background transitions
 Light Mode: Soft Grey (Option B)
 */
+/* ---------------------------------------
+   ELECTRIC XTRA ORIGINAL GLITCH EFFECT
+---------------------------------------- */
+.glitch-text {
+    position: relative;
+    display: inline-block;
+    font-family: 'Orbitron', monospace;
+    color: var(--text-color);
+    font-size: clamp(2.6rem, 10vw, 3.8rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    line-height: 1;
+}
+
+/* RGB layers */
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch-text::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff0066;
+    clip-path: inset(0 0 0 0);
+    animation: glitch-1 2.5s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+    left: -2px;
+    text-shadow: -2px 0 #00eaff;
+    clip-path: inset(0 0 0 0);
+    animation: glitch-2 3s infinite linear alternate-reverse;
+}
+
+/* Animation */
+@keyframes glitch-1 {
+    0% { clip-path: inset(0 0 0 0); transform: translate(0); }
+    20% { clip-path: inset(10% 0 50% 0); transform: translate(-2px, -2px); }
+    40% { clip-path: inset(80% 0 5% 0); transform: translate(2px, 2px); }
+    60% { clip-path: inset(30% 0 40% 0); transform: translate(-1px, 1px); }
+    100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+}
+
+@keyframes glitch-2 {
+    0% { clip-path: inset(0 0 0 0); transform: translate(0); }
+    15% { clip-path: inset(60% 0 20% 0); transform: translate(2px, -2px); }
+    30% { clip-path: inset(25% 0 55% 0); transform: translate(-2px, 2px); }
+    70% { clip-path: inset(70% 0 5% 0); transform: translate(1px, -1px); }
+    100% { clip-path: inset(0 0 0 0); transform: translate(0); }
+}
 /* GLITCH BASE */
 .glitch-text {
     position: relative;
