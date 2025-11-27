@@ -2,6 +2,40 @@
 templatemo-electric-scripts.js (FULL VERSION WITH GLITCH TEXT)
 Floating toggle removed
 ============================================================ */
+/* ============================
+   GLITCH TEXT ROTATION
+=============================== */
+
+const sets = document.querySelectorAll(".text-set");
+let index = 0;
+
+function rotateText() {
+    const current = sets[index];
+
+    // Fade out current
+    current.classList.remove("active");
+    current.classList.add("fade-out");
+
+    // Next index
+    index = (index + 1) % sets.length;
+    const next = sets[index];
+
+    // After fade-out swap to next
+    setTimeout(() => {
+        current.classList.remove("fade-out");
+        next.classList.add("active");
+
+        // retrigger glitch by resetting animation
+        const glitch = next.querySelector(".glitch-text");
+        glitch.style.animation = "none";
+        void glitch.offsetWidth; // force rewrite
+        glitch.style.animation = "";
+
+    }, 500);
+}
+
+// Rotate every 3.5 seconds
+setInterval(rotateText, 3500);
 
 /* -------------------------------
 THEME INITIALIZATION
