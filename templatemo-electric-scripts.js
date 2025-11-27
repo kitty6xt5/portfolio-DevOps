@@ -1,44 +1,112 @@
-// -------------------------------------
-// DARK & LIGHT MODE TOGGLE
-// -------------------------------------
+/* ------------------------------- */
+/*  PORTFOLIO MAIN SCRIPT (FULL)   */
+/* ------------------------------- */
 
-const toggleBtn = document.createElement("div");
-toggleBtn.className = "toggle";
-toggleBtn.innerText = "🌙 Dark Mode";
-document.body.appendChild(toggleBtn);
+// -------------------------------
+// THEME TOGGLE (Dark / Light)
+// -------------------------------
+const toggleBtn = document.querySelector(".toggle");
 
-// Load theme from localStorage
-let currentTheme = localStorage.getItem("theme") || "light";
-document.documentElement.setAttribute("data-theme", currentTheme);
-
-if (currentTheme === "dark") {
-    toggleBtn.innerText = "☀️ Light Mode";
+// Load saved theme
+if (localStorage.getItem("theme")) {
+    document.documentElement.setAttribute("data-theme", localStorage.getItem("theme"));
 }
 
-// Toggle on click
-toggleBtn.addEventListener("click", () => {
-    let theme = document.documentElement.getAttribute("data-theme");
+// Button click toggle
+if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+        const current = document.documentElement.getAttribute("data-theme");
+        const newTheme = current === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+    });
+}
 
-    if (theme === "light") {
-        document.documentElement.setAttribute("data-theme", "dark");
-        localStorage.setItem("theme", "dark");
-        toggleBtn.innerText = "☀️ Light Mode";
-    } else {
-        document.documentElement.setAttribute("data-theme", "light");
-        localStorage.setItem("theme", "light");
-        toggleBtn.innerText = "🌙 Dark Mode";
-    }
+// -------------------------------
+// SCROLL REVEAL ANIMATION
+// -------------------------------
+const fadeElements = document.querySelectorAll(".fade");
+
+function revealOnScroll() {
+    fadeElements.forEach(el => {
+        const position = el.getBoundingClientRect().top;
+        const screenHeight = window.innerHeight;
+        if (position < screenHeight - 100) {
+            el.classList.add("visible");
+        }
+    });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+window.addEventListener("load", revealOnScroll);
+
+// -------------------------------
+// SMOOTH SCROLLING
+// -------------------------------
+const links = document.querySelectorAll("a[href^='#']");
+
+links.forEach(link => {
+    link.addEventListener("click", function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+            window.scrollTo({
+                top: target.offsetTop - 40,
+                behavior: "smooth"
+            });
+        }
+    });
 });
 
-// -------------------------------------
-// SMOOTH SCROLL (Optional if you add nav)
-// -------------------------------------
+// -------------------------------
+// NAVBAR ACTIVE HIGHLIGHT
+// -------------------------------
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll("nav a");
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
+window.addEventListener("scroll", () => {
+    let current = "";
+
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (scrollY >= sectionTop - 100) {
+            current = section.getAttribute("id");
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href").includes(current)) {
+            link.classList.add("active");
+        }
+    });
+});
+
+// -------------------------------
+// PARALLAX HERO (Smooth Framer Style)
+// -------------------------------
+const hero = document.querySelector(".hero");
+
+if (hero) {
+    window.addEventListener("scroll", () => {
+        const offset = window.scrollY;
+        hero.style.transform = `translateY(${offset * 0.3}px)`;
+    });
+}
+
+// -------------------------------
+// BUTTON CLICK RIPPLE EFFECT
+// -------------------------------
+const buttons = document.querySelectorAll(".btn");
+
+buttons.forEach(btn => {
+    btn.addEventListener("click", function(e) {
+        const ripple = document.createElement("span");
+        ripple.classList.add("ripple");
+        ripple.style.left = `${e.clientX - btn.offsetLeft}px`;
+        ripple.style.top = `${e.clientY - btn.offsetTop}px`;
+        this.appendChild(ripple);
+
+        setTimeout(() => ripple.remove(), 600);
     });
 });
