@@ -1,44 +1,51 @@
 /* ============================================================
-   templatemo-electric-scripts.js (Clean Fixed Version)
+   templatemo-electric-scripts.js (Full Rewritten Version)
    Includes:
    ✔ Auto-detect system theme
-   ✔ Single Navbar Toggle (🌙 / ☀️)
+   ✔ Dark/Light sliding toggle (Navbar + Floating)
    ✔ Animated background transition
    ✔ LocalStorage theme persistence
-   ✔ All template animations preserved
+   ✔ Original template animations preserved
+   ✔ Rotating hero text
+   ✔ Tabs for skills/projects
+   ✔ Mobile menu
+   ✔ Scroll highlighting
+   ✔ Particles
    ============================================================ */
 
 /* -------------------------------
    THEME INITIALIZATION
 ---------------------------------- */
 
-// Detect system theme preference
-const systemPrefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
+// Detect system theme
+const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
 
-// Load saved theme from storage
+// Load saved theme OR use system theme
 let savedTheme = localStorage.getItem("theme");
 
-// Elements
-const navToggle = document.getElementById("themeToggleNav");
-
-// Apply theme on load
 if (savedTheme === "light") {
     document.body.classList.add("light-mode");
-    if (navToggle) navToggle.checked = true;
 } else if (savedTheme === "dark") {
     document.body.classList.remove("light-mode");
-    if (navToggle) navToggle.checked = false;
 } else {
-    // No saved theme → use system theme
-    if (systemPrefersLight) {
-        document.body.classList.add("light-mode");
-        if (navToggle) navToggle.checked = true;
-    }
+    // Use system theme
+    if (prefersLight) document.body.classList.add("light-mode");
 }
 
-/* -------------------------------
-   ANIMATED BACKGROUND TRANSITION
----------------------------------- */
+// Elements for theme toggle
+const navToggle = document.getElementById("themeToggleNav");
+const floatToggle = document.getElementById("themeToggleFloating");
+
+// Sync toggle thumb positions on load
+function syncToggles() {
+    const isLight = document.body.classList.contains("light-mode");
+
+    if (navToggle) navToggle.checked = isLight;
+    if (floatToggle) floatToggle.checked = isLight;
+}
+syncToggles();
+
+// Animated background transition helper
 function animateBackgroundTransition() {
     document.body.classList.add("theme-transitioning");
     setTimeout(() => {
@@ -46,9 +53,7 @@ function animateBackgroundTransition() {
     }, 800);
 }
 
-/* -------------------------------
-   THEME TOGGLE (NAVBAR ONLY)
----------------------------------- */
+// Toggle theme function
 function toggleTheme(isLight) {
     animateBackgroundTransition();
 
@@ -59,10 +64,16 @@ function toggleTheme(isLight) {
         document.body.classList.remove("light-mode");
         localStorage.setItem("theme", "dark");
     }
+
+    syncToggles();
 }
 
+// Add listeners
 if (navToggle) {
     navToggle.addEventListener("change", (e) => toggleTheme(e.target.checked));
+}
+if (floatToggle) {
+    floatToggle.addEventListener("change", (e) => toggleTheme(e.target.checked));
 }
 
 /* -------------------------------
@@ -85,7 +96,7 @@ menuToggle.addEventListener("click", () => {
     navLinks.classList.toggle("active");
 });
 
-/* Close mobile menu on nav click */
+/* Close menu on nav click (mobile) */
 document.querySelectorAll(".nav-link").forEach(link => {
     link.addEventListener("click", () => {
         menuToggle.classList.remove("active");
@@ -94,7 +105,7 @@ document.querySelectorAll(".nav-link").forEach(link => {
 });
 
 /* -------------------------------
-   SCROLL-BASED NAV HIGHLIGHT
+   SECTION HIGHLIGHT ON SCROLL
 ---------------------------------- */
 const sections = document.querySelectorAll("section");
 const navItems = document.querySelectorAll(".nav-link");
@@ -115,33 +126,33 @@ window.addEventListener("scroll", () => {
    HERO TEXT ROTATOR
 ---------------------------------- */
 let textSets = document.querySelectorAll(".text-set");
-let currentIndex = 0;
+let currentTextIndex = 0;
 
 function rotateText() {
-    textSets[currentIndex].classList.remove("active");
-    currentIndex = (currentIndex + 1) % textSets.length;
-    textSets[currentIndex].classList.add("active");
+    textSets[currentTextIndex].classList.remove("active");
+    currentTextIndex = (currentTextIndex + 1) % textSets.length;
+    textSets[currentTextIndex].classList.add("active");
 }
 setInterval(rotateText, 3500);
 
 /* -------------------------------
-   SKILLS TABS
+   SKILLS / PROJECTS TABS
 ---------------------------------- */
 const tabItems = document.querySelectorAll(".tab-item");
 const contentPanels = document.querySelectorAll(".content-panel");
 
-tabItems.forEach((tab, idx) => {
+tabItems.forEach((tab, index) => {
     tab.addEventListener("click", () => {
         tabItems.forEach(t => t.classList.remove("active"));
         tab.classList.add("active");
 
         contentPanels.forEach(c => c.classList.remove("active"));
-        contentPanels[idx].classList.add("active");
+        contentPanels[index].classList.add("active");
     });
 });
 
 /* -------------------------------
-   PARTICLES
+   PARTICLES BACKGROUND ANIMATION
 ---------------------------------- */
 function createParticle() {
     let particle = document.createElement("div");
@@ -156,10 +167,11 @@ function createParticle() {
 
     setTimeout(() => particle.remove(), 15000);
 }
+
 setInterval(createParticle, 500);
 
 /* -------------------------------
-   SMOOTH INTERNAL SCROLL
+   SMOOTH SCROLL FOR INTERNAL LINKS
 ---------------------------------- */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener("click", function (e) {
@@ -173,5 +185,5 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 /* -------------------------------
-   END OF FILE
+   END OF FULL JS FILE
 ---------------------------------- */
