@@ -1,91 +1,120 @@
-/* ================================================================
-   FINAL FIXED CSS — THEME SWITCH + NAVBAR + NO FLOATING TOGGLE
-================================================================ */
-
+/* ============================================================
+   GLOBAL VARIABLES
+============================================================ */
 :root {
     --bg-color: #0a0a0a;
     --text-color: #ffffff;
     --accent1: #FF5E00;
     --accent2: #00B2FF;
+    --nav-height: 80px;
+    --transition: 0.3s ease;
 }
 
-body.light-mode {
-    --bg-color: #f4f4f4;
-    --text-color: #000000;
+/* Light theme */
+.light-theme {
+    --bg-color: #ffffff;
+    --text-color: #111111;
+    --accent1: #FF5E00;
+    --accent2: #0077CC;
 }
 
-body {
+/* ============================================================
+   GLOBAL STYLE
+============================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    scroll-behavior: smooth;
     background: var(--bg-color);
     color: var(--text-color);
-    margin: 0;
-    font-family: 'Rajdhani', sans-serif;
-    transition: background 0.4s ease, color 0.4s ease;
+    font-family: "Rajdhani", sans-serif;
+    overflow-x: hidden;
 }
 
-/* NAVBAR */
+/* Prevent layout shift */
+body * {
+    transform: translateZ(0);
+}
+
+/* ============================================================
+   NAVIGATION
+============================================================ */
 #navbar {
     width: 100%;
+    height: var(--nav-height);
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
     position: fixed;
     top: 0;
     left: 0;
     z-index: 9999;
-    background: rgba(10, 10, 10, 0.75);
-    backdrop-filter: blur(6px);
+
+    display: flex;
+    align-items: center;
     border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-body.light-mode #navbar {
-    background: rgba(255,255,255,0.75);
-}
-
 .nav-container {
+    width: 90%;
     max-width: 1300px;
     margin: auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 24px;
 }
 
-.logo-link {
-    font-size: 1.4rem;
+/* Text Logo */
+.logo-text {
+    font-size: 26px;
     font-weight: 700;
+    background: linear-gradient(45deg, var(--accent1), var(--accent2));
+    -webkit-background-clip: text;
+    color: transparent;
     text-decoration: none;
-    color: var(--text-color);
 }
 
-/* NAV LINKS */
+/* Nav Links */
 .nav-links {
-    display: flex;
-    gap: 22px;
     list-style: none;
+    display: flex;
+    gap: 30px;
 }
 
-.nav-link {
+.nav-links li a {
     text-decoration: none;
     color: var(--text-color);
-    font-size: 1.05rem;
-    transition: 0.3s;
+    font-size: 18px;
+    transition: var(--transition);
 }
 
-.nav-link:hover {
+.nav-links li a:hover {
     color: var(--accent2);
 }
 
-/* THEME SWITCH */
+/* ============================================================
+   THEME TOGGLE (DESKTOP)
+============================================================ */
 .theme-switch {
-    width: 52px;
-    height: 26px;
-    background: rgba(255,255,255,0.12);
-    border-radius: 20px;
-    position: relative;
+    width: 55px;
+    height: 28px;
+    border-radius: 50px;
+    border: 2px solid var(--accent2);
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 2px;
 }
 
 .toggle-track {
     width: 100%;
     height: 100%;
-    border-radius: 20px;
+    position: relative;
 }
 
 .toggle-thumb {
@@ -93,63 +122,251 @@ body.light-mode #navbar {
     height: 24px;
     background: var(--accent2);
     border-radius: 50%;
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.35s ease, background 0.35s ease;
+    font-size: 14px;
+    position: absolute;
+    left: 2px;
+    transition: var(--transition);
 }
 
-/* Light mode thumb position */
-body.light-mode .toggle-thumb {
-    transform: translateX(26px);
+/* When light theme -> thumb goes right */
+.light-theme .toggle-thumb {
+    transform: translateX(27px);
     background: var(--accent1);
 }
 
-/* MOBILE MENU */
+/* ============================================================
+   MOBILE MENU BUTTON
+============================================================ */
 .menu-toggle {
+    width: 32px;
+    height: 28px;
     display: none;
     flex-direction: column;
-    gap: 4px;
+    justify-content: space-between;
+    cursor: pointer;
 }
 
 .menu-toggle span {
-    width: 25px;
-    height: 3px;
+    width: 100%;
+    height: 4px;
     background: var(--text-color);
+    border-radius: 4px;
 }
 
-/* RESPONSIVE */
-@media(max-width: 900px) {
+/* ============================================================
+   MOBILE NAVIGATION
+============================================================ */
+@media (max-width: 900px) {
+
     .nav-links {
-        position: absolute;
-        top: 65px;
-        right: 0;
-        width: 220px;
+        position: fixed;
+        top: var(--nav-height);
+        right: -100%;
+        height: calc(100vh - var(--nav-height));
+        width: 100%;
+        max-width: 350px;
+        background: rgba(10,10,10,0.95);
         flex-direction: column;
-        background: rgba(0,0,0,0.85);
-        padding: 20px;
-        display: none;
+        padding-top: 40px;
+        transition: var(--transition);
+        backdrop-filter: blur(15px);
     }
 
-    body.light-mode .nav-links {
-        background: rgba(255,255,255,0.85);
-    }
-
-    .nav-links.active {
-        display: flex;
+    .nav-links.show {
+        right: 0;
     }
 
     .menu-toggle {
         display: flex;
     }
+
+    .theme-switch {
+        margin-left: 15px;
+    }
 }
 
-/* HERO + Other sections remain exactly same (no edits required) */
-/* (Removing them from this answer would break your file — so full CSS continues…) */
+/* ============================================================
+   HERO SECTION
+============================================================ */
+.hero {
+    width: 100%;
+    min-height: 100vh;
+    padding-top: var(--nav-height);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
-/* ====== THE REST OF CSS UNTOUCHED (YOUR ORIGINAL STYLES) ====== */
-/* (Paste your remaining CSS content exactly from your file) */
+.hero-content {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.glitch-text {
+    font-size: 58px;
+    font-family: "Orbitron", sans-serif;
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--accent1), var(--accent2));
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* Rotating text set */
+.text-rotator {
+    height: 150px;
+    overflow: hidden;
+}
+
+.text-set {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    transition: 0.8s ease;
+}
+
+.text-set.active {
+    opacity: 1;
+    position: relative;
+}
+
+/* Subtitle */
+.subtitle {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+/* ============================================================
+   CTA BUTTONS
+============================================================ */
+.cta-container {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+}
+
+.cta-button {
+    padding: 12px 25px;
+    border-radius: 6px;
+    font-size: 18px;
+    border: 2px solid var(--accent2);
+    color: var(--accent2);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.cta-primary {
+    background: var(--accent2);
+    color: #fff;
+}
+
+.cta-secondary:hover,
+.cta-primary:hover {
+    opacity: 0.8;
+}
+
+/* ============================================================
+   SECTIONS
+============================================================ */
+section {
+    padding: 100px 10%;
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 38px;
+    text-align: center;
+    margin-bottom: 40px;
+    background: linear-gradient(45deg, var(--accent1), var(--accent2));
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+/* ============================================================
+   SKILLS SECTION
+============================================================ */
+.features-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.feature-tabs {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.tab-item {
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    border: 2px solid var(--accent2);
+    border-radius: 6px;
+    transition: var(--transition);
+}
+
+.tab-item.active {
+    background: var(--accent2);
+    color: #fff;
+}
+
+.feature-content {
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+}
+
+.content-panel {
+    display: none;
+    animation: fade 0.3s ease;
+}
+
+.content-panel.active {
+    display: block;
+}
+
+/* ============================================================
+   ABOUT / PROJECTS / EDUCATION
+============================================================ */
+.about-content {
+    max-width: 900px;
+    margin: auto;
+}
+
+.about-text h2 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+/* ============================================================
+   CONTACT
+============================================================ */
+.contact-container {
+    text-align: center;
+    font-size: 20px;
+    line-height: 32px;
+}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer {
+    text-align: center;
+    padding: 30px;
+    font-size: 16px;
+    opacity: 0.7;
+}
+
+/* ============================================================
+   FADE ANIMATION
+============================================================ */
+@keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
