@@ -1,16 +1,6 @@
 /* ============================================================
 templatemo-electric-scripts.js (Full Rewritten Version)
-Includes:
-✔ Auto-detect system theme
-✔ Dark/Light sliding toggle (Navbar + Floating)
-✔ Animated background transition
-✔ LocalStorage theme persistence
-✔ Original template animations preserved
-✔ Rotating hero text
-✔ Tabs for skills/projects
-✔ Mobile menu
-✔ Scroll highlighting
-✔ Particles
+Floating toggle removed (ONLY change requested)
 ============================================================ */
 
 /* -------------------------------
@@ -28,20 +18,17 @@ if (savedTheme === "light") {
 } else if (savedTheme === "dark") {
     document.body.classList.remove("light-mode");
 } else {
-    // Use system theme
     if (prefersLight) document.body.classList.add("light-mode");
 }
 
 // Elements for theme toggle
 const navToggle = document.getElementById("themeToggleNav");
-const floatToggle = document.getElementById("themeToggleFloating");
 
 // Sync toggle thumb positions on load
 function syncToggles() {
     const isLight = document.body.classList.contains("light-mode");
 
     if (navToggle) navToggle.checked = isLight;
-    if (floatToggle) floatToggle.checked = isLight;
 }
 
 syncToggles();
@@ -69,12 +56,9 @@ function toggleTheme(isLight) {
     syncToggles();
 }
 
-// Add listeners
+// Add listener
 if (navToggle) {
     navToggle.addEventListener("change", (e) => toggleTheme(e.target.checked));
-}
-if (floatToggle) {
-    floatToggle.addEventListener("change", (e) => toggleTheme(e.target.checked));
 }
 
 /* -------------------------------
