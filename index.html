@@ -5,60 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kausthubh Swami - Portfolio</title>
 
-    <!-- Fonts & CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href="templatemo-electric-xtra.css" rel="stylesheet">
+    <link rel="stylesheet" href="templatemo-electric-xtra.css">
 </head>
 
 <body>
-    <!-- Background Effects -->
+
+    <!-- Background Elements -->
     <div class="grid-bg"></div>
     <div class="gradient-overlay"></div>
     <div class="scanlines"></div>
-
-    <!-- Shapes -->
-    <div class="shapes-container">
-        <div class="shape shape-circle"></div>
-        <div class="shape shape-triangle"></div>
-        <div class="shape shape-square"></div>
-    </div>
-
     <div id="particles"></div>
 
     <!-- NAVBAR -->
     <nav id="navbar">
         <div class="nav-container">
 
-            <!-- LOGO REMOVED — ONLY NAME -->
-            <a href="#home" class="logo-link">
-                <span class="logo-text">Kausthubh Swami</span>
-            </a>
+            <!-- NAME ONLY (LOGO REMOVED) -->
+            <a href="#home" class="logo-text">Kausthubh Swami</a>
 
+            <!-- NAV LINKS -->
             <ul class="nav-links" id="navLinks">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#education" class="nav-link">Education</a></li>
-                <li><a href="#achievements" class="nav-link">Achievements</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#contact">Contact</a></li>
             </ul>
 
-            <!-- FINAL THEME SWITCH (DESKTOP + MOBILE) -->
+            <!-- THEME TOGGLE (DESKTOP) -->
             <div class="theme-switch" id="themeSwitchNav">
                 <div class="toggle-track">
-                    <div class="toggle-thumb" id="toggleThumbNav">🌙</div>
+                    <div class="toggle-thumb" id="toggleThumbNav">☀️</div>
                 </div>
             </div>
 
+            <!-- MOBILE MENU BUTTON -->
             <div class="menu-toggle" id="menuToggle">
                 <span></span><span></span><span></span>
             </div>
+
         </div>
     </nav>
 
-    <!-- HERO -->
+    <!-- HERO SECTION -->
     <section class="hero" id="home">
         <div class="hero-content">
+
             <div class="text-rotator">
                 <div class="text-set active">
                     <h1 class="glitch-text" data-text="DevOps Engineer">DevOps Engineer</h1>
@@ -82,151 +76,114 @@
     </section>
 
     <!-- SKILLS -->
-    <section class="features" id="skills">
+    <section id="skills" class="features">
         <h2 class="section-title">Technical Skills</h2>
 
         <div class="features-container">
+
             <div class="feature-tabs">
                 <div class="tab-item active" data-tab="os">Operating Systems</div>
                 <div class="tab-item" data-tab="cloud">Cloud Platform</div>
-                <div class="tab-item" data-tab="network">Networking & Database</div>
+                <div class="tab-item" data-tab="network">Networking & DB</div>
                 <div class="tab-item" data-tab="tools">DevOps Tools</div>
                 <div class="tab-item" data-tab="monitor">Monitoring</div>
                 <div class="tab-item" data-tab="core">Core Strengths</div>
             </div>
 
             <div class="feature-content">
-                <div class="content-panel active" id="os">
-                    <h3>Operating Systems</h3>
-                    <p>Linux, Windows</p>
-                </div>
-
-                <div class="content-panel" id="cloud">
-                    <h3>Cloud Platform</h3>
-                    <p>AWS</p>
-                </div>
-
-                <div class="content-panel" id="network">
-                    <h3>Networking & Database</h3>
-                    <p>Load Balancer, MySQL</p>
-                </div>
-
-                <div class="content-panel" id="tools">
-                    <h3>DevOps Tools</h3>
-                    <p>Docker, Kubernetes</p>
-                </div>
-
-                <div class="content-panel" id="monitor">
-                    <h3>Monitoring</h3>
-                    <p>CloudWatch</p>
-                </div>
-
+                <div class="content-panel active" id="os"><h3>Operating Systems</h3><p>Linux, Windows</p></div>
+                <div class="content-panel" id="cloud"><h3>Cloud</h3><p>AWS</p></div>
+                <div class="content-panel" id="network"><h3>Networking & Database</h3><p>Load Balancer, MySQL</p></div>
+                <div class="content-panel" id="tools"><h3>DevOps Tools</h3><p>Docker, Kubernetes</p></div>
+                <div class="content-panel" id="monitor"><h3>Monitoring</h3><p>CloudWatch</p></div>
                 <div class="content-panel" id="core">
                     <h3>Core Strengths</h3>
-                    <ul class="feature-list">
+                    <ul>
                         <li>Automation</li>
                         <li>Problem Solving</li>
-                        <li>Cloud Architecture Fundamentals</li>
+                        <li>Cloud Architecture</li>
                         <li>CI/CD Concepts</li>
                     </ul>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- EXPERIENCE -->
-    <section class="about" id="experience">
-        <div class="about-content">
-            <div class="about-text">
-                <h2>Experience</h2>
-                <h3>DevOps Intern (Jan 2025 – Jun 2025)</h3>
-                <p><b>Upflairs Private Limited — Jaipur, Rajasthan</b></p>
-                <ul class="feature-list">
-                    <li>AWS EC2, S3, VPC, IAM, CloudWatch, Terraform.</li>
-                    <li>MySQL management + CloudWatch alarms.</li>
-                    <li>Docker, Kubernetes, Ansible.</li>
-                </ul>
-            </div>
         </div>
     </section>
 
     <!-- PROJECTS -->
-    <section class="about" id="projects">
+    <section id="projects" class="about">
         <div class="about-content">
             <div class="about-text">
+
                 <h2>Projects</h2>
 
-                <h3>Custom LoadBalancer with EC2</h3>
+                <h3>Custom Load Balancer — AWS</h3>
                 <p><b>Tools:</b> Nginx, AWS LB, EC2</p>
-                <ul class="feature-list">
-                    <li>Custom load balancer using Nginx on EC2.</li>
-                    <li>Reduced deployment time by 30% via automation.</li>
+                <ul>
+                    <li>Created custom load balancer using Nginx on EC2.</li>
+                    <li>Improved deployment automation by 30%.</li>
                 </ul>
 
-                <h3>HTML Hosting with MySQL Replication</h3>
-                <p><b>Tools:</b> AWS, EC2, Apache, MySQL</p>
-                <ul class="feature-list">
-                    <li>MySQL master-slave replication.</li>
-                    <li>Hosted replicated database website.</li>
+                <br>
+
+                <h3>MySQL Replication + Website Hosting</h3>
+                <p><b>Tools:</b> EC2, Apache, MySQL</p>
+                <ul>
+                    <li>Configured master-slave replication.</li>
+                    <li>Hosted dynamic website backed by replicated DB.</li>
                 </ul>
+
             </div>
         </div>
     </section>
 
     <!-- EDUCATION -->
-    <section class="about" id="education">
+    <section id="education" class="about">
         <div class="about-content">
             <div class="about-text">
+
                 <h2>Education</h2>
-                <p><b>JECRC — Jaipur</b><br>B.Tech CSE — May 2025</p>
 
-                <p><b>BTTI — Pilani</b><br>Diploma Mechanical — 2018–2021</p>
+                <p><b>JECRC — Jaipur</b><br>B.Tech CSE — 2025</p>
+                <p><b>BTTI — Pilani</b><br>Diploma Mechanical — 2021</p>
+                <p><b>Emmanuel School — Kotputli</b><br>Completed 2018</p>
 
-                <p><b>Emmanuel School</b><br>Completed 2018</p>
             </div>
         </div>
     </section>
 
     <!-- ACHIEVEMENTS -->
-    <section class="about" id="achievements">
+    <section id="achievements" class="about">
         <div class="about-content">
             <div class="about-text">
+
                 <h2>Achievements</h2>
-                <ul class="feature-list">
-                    <li>Published research paper — NCICT 2025.</li>
-                    <li>Trekked 45 km to 7,227 feet — A Grade.</li>
-                    <li>Rashtrapati Award Training.</li>
-                    <li>Rajya Puruskar Award.</li>
+
+                <ul>
+                    <li>Published Research Paper (Cloud Computing Platforms)</li>
+                    <li>A Grade – National Adventure Himalayan Trek</li>
+                    <li>Rashtrapati Award Training Certificate</li>
+                    <li>Rajya Puruskar Award</li>
                 </ul>
+
             </div>
         </div>
     </section>
 
     <!-- CONTACT -->
-    <section class="contact" id="contact">
+    <section id="contact" class="contact">
         <h2 class="section-title">Connect With Me</h2>
 
         <div class="contact-container">
-            <div class="contact-info">
-                <h3>Contact Details</h3>
-
-                <h4>Email</h4>
-                <p><a href="mailto:kausthubhswami@gmail.com">kausthubhswami@gmail.com</a></p>
-
-                <h4>GitHub</h4>
-                <p><a href="https://github.com/kitty6xt5">github.com/kitty6xt5</a></p>
-
-                <h4>Location</h4>
-                <p>Jaipur, Rajasthan</p>
-            </div>
+            <p>Email: <a href="mailto:kausthubhswami@gmail.com">kausthubhswami@gmail.com</a></p>
+            <p>GitHub: <a href="https://github.com/kitty6xt5" target="_blank">github.com/kitty6xt5</a></p>
+            <p>Location: Jaipur, Rajasthan</p>
         </div>
     </section>
 
     <!-- FOOTER -->
     <footer>
-        <div class="footer-content">
-            <p>© 2025 Kausthubh Swami | All Rights Reserved</p>
-        </div>
+        <p>© 2025 Kausthubh Swami | All Rights Reserved</p>
     </footer>
 
     <script src="templatemo-electric-scripts.js"></script>
