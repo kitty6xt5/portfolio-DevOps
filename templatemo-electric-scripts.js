@@ -1,264 +1,195 @@
-/* templatemo-electric-scripts.js
-   Final complete JS — theme toggle (sun → moon), mobile menu, rotator, tabs, scroll highlight, particles.
-*/
+/* ============================================================
+templatemo-electric-scripts.js (Full Rewritten Version)
+Includes:
+✔ Auto-detect system theme
+✔ Dark/Light sliding toggle (Navbar + Floating)
+✔ Animated background transition
+✔ LocalStorage theme persistence
+✔ Original template animations preserved
+✔ Rotating hero text
+✔ Tabs for skills/projects
+✔ Mobile menu
+✔ Scroll highlighting
+✔ Particles
+============================================================ */
 
-(function () {
-  "use strict";
+/* -------------------------------
+THEME INITIALIZATION
+---------------------------------- */
 
-  document.addEventListener("DOMContentLoaded", () => {
-    /* ---------------------------
-       ELEMENTS
-    ----------------------------*/
-    const body = document.body;
-    const themeSwitch = document.getElementById("themeSwitchNav");
-    const thumb = document.getElementById("toggleThumbNav");
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinksContainer = document.getElementById("navLinks");
-    const navLinks = navLinksContainer ? Array.from(navLinksContainer.querySelectorAll("a")) : [];
-    const navbar = document.getElementById("navbar");
-    const textSets = Array.from(document.querySelectorAll(".text-set"));
-    const tabItems = Array.from(document.querySelectorAll(".tab-item"));
-    const contentPanels = Array.from(document.querySelectorAll(".content-panel"));
-    const particlesContainer = document.getElementById("particles");
+// Detect system theme
+const prefersLight = window.matchMedia("(prefers-color-scheme: light)").matches;
 
-    /* ---------------------------
-       THEME: default = LIGHT (☀️) unless user set in localStorage
-       NOTE: CSS uses .light-theme class (see CSS provided earlier)
-    ----------------------------*/
-    const STORAGE_KEY = "theme"; // "light" or "dark"
-    const LIGHT_CLASS = "light-theme";
+// Load saved theme OR use system theme
+let savedTheme = localStorage.getItem("theme");
 
-    function isLight() {
-      return body.classList.contains(LIGHT_CLASS);
-    }
+if (savedTheme === "light") {
+document.body.classList.add("light-mode");
+} else if (savedTheme === "dark") {
+document.body.classList.remove("light-mode");
+} else {
+// Use system theme
+if (prefersLight) document.body.classList.add("light-mode");
+}
 
-    function setThumbEmoji(light) {
-      if (!thumb) return;
-      thumb.textContent = light ? "☀️" : "🌙";
-    }
+// Elements for theme toggle
+const navToggle = document.getElementById("themeToggleNav");
+const floatToggle = document.getElementById("themeToggleFloating");
 
-    // Initialize theme: prefer saved, else default to light (user requested initial sun)
-    (function initTheme() {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved === "light") {
-        body.classList.add(LIGHT_CLASS);
-      } else if (saved === "dark") {
-        body.classList.remove(LIGHT_CLASS);
-      } else {
-        // No saved preference -> default to light (☀️)
-        body.classList.add(LIGHT_CLASS);
-      }
-      setThumbEmoji(isLight());
-    })();
+// Sync toggle thumb positions on load
+function syncToggles() {
+const isLight = document.body.classList.contains("light-mode");
 
-    // Toggle theme handler
-    function toggleTheme() {
-      const nextIsLight = !isLight();
-      if (nextIsLight) body.classList.add(LIGHT_CLASS);
-      else body.classList.remove(LIGHT_CLASS);
-      setThumbEmoji(nextIsLight);
-      localStorage.setItem(STORAGE_KEY, nextIsLight ? "light" : "dark");
-    }
+if (navToggle) navToggle.checked = isLight;  
+if (floatToggle) floatToggle.checked = isLight;
 
-    // Attach handlers to the theme switch (div used as button)
-    if (themeSwitch) {
-      // Ensure accessible focus/tab
-      themeSwitch.setAttribute("role", "button");
-      if (!themeSwitch.hasAttribute("tabindex")) themeSwitch.setAttribute("tabindex", "0");
-      themeSwitch.setAttribute("aria-pressed", isLight() ? "true" : "false");
+}
+syncToggles();
 
-      themeSwitch.addEventListener("click", (e) => {
-        e.preventDefault();
-        toggleTheme();
-        themeSwitch.setAttribute("aria-pressed", isLight() ? "true" : "false");
-      });
+// Animated background transition helper
+function animateBackgroundTransition() {
+document.body.classList.add("theme-transitioning");
+setTimeout(() => {
+document.body.classList.remove("theme-transitioning");
+}, 800);
+}
 
-      themeSwitch.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          toggleTheme();
-          themeSwitch.setAttribute("aria-pressed", isLight() ? "true" : "false");
-        }
-      });
-    }
+// Toggle theme function
+function toggleTheme(isLight) {
+animateBackgroundTransition();
 
-    /* ---------------------------
-       MOBILE MENU
-    ----------------------------*/
-    function setMenuOpen(open) {
-      if (!navLinksContainer || !menuToggle) return;
-      navLinksContainer.classList.toggle("show", open);
-      menuToggle.classList.toggle("active", open);
-      menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
-      if (open) {
-        // prevent body scrolling when menu open
-        document.documentElement.style.overflow = "hidden";
-        document.body.style.overflow = "hidden";
-      } else {
-        document.documentElement.style.overflow = "";
-        document.body.style.overflow = "";
-      }
-    }
+if (isLight) {  
+    document.body.classList.add("light-mode");  
+    localStorage.setItem("theme", "light");  
+} else {  
+    document.body.classList.remove("light-mode");  
+    localStorage.setItem("theme", "dark");  
+}  
 
-    if (menuToggle) {
-      menuToggle.setAttribute("role", "button");
-      if (!menuToggle.hasAttribute("tabindex")) menuToggle.setAttribute("tabindex", "0");
-      menuToggle.setAttribute("aria-expanded", "false");
+syncToggles();
 
-      menuToggle.addEventListener("click", (e) => {
-        e.preventDefault();
-        setMenuOpen(!menuToggle.classList.contains("active"));
-      });
+}
 
-      menuToggle.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          setMenuOpen(!menuToggle.classList.contains("active"));
-        } else if (e.key === "Escape") {
-          setMenuOpen(false);
-        }
-      });
+// Add listeners
+if (navToggle) {
+navToggle.addEventListener("change", (e) => toggleTheme(e.target.checked));
+}
+if (floatToggle) {
+floatToggle.addEventListener("change", (e) => toggleTheme(e.target.checked));
+}
 
-      // Close menu when a nav link clicked (mobile)
-      navLinks.forEach((a) => {
-        a.addEventListener("click", () => setMenuOpen(false));
-      });
-    }
+/* -------------------------------
+NAVBAR SCROLL EFFECT
+---------------------------------- */
+const navbar = document.getElementById("navbar");
+window.addEventListener("scroll", () => {
+if (window.scrollY > 50) navbar.classList.add("scrolled");
+else navbar.classList.remove("scrolled");
+});
 
-    /* ---------------------------
-       SCROLL: highlight active section (anchors inside #navLinks)
-    ----------------------------*/
-    const sections = Array.from(document.querySelectorAll("section")).filter(s => s.id);
-    function updateActiveLink() {
-      const pos = window.scrollY + 150;
-      let currentId = null;
-      for (const sec of sections) {
-        if (pos >= sec.offsetTop && pos < sec.offsetTop + sec.offsetHeight) {
-          currentId = sec.id;
-          break;
-        }
-      }
-      navLinks.forEach(a => {
-        const href = a.getAttribute("href");
-        if (!href || !href.startsWith("#")) return;
-        a.classList.toggle("active", href === `#${currentId}`);
-      });
-    }
+/* -------------------------------
+MOBILE MENU TOGGLE
+---------------------------------- */
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
 
-    // Debounce w/ requestAnimationFrame
-    let ticking = false;
-    window.addEventListener("scroll", () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          updateActiveLink();
-          // small navbar style change (optional): add .scrolled when >50
-          if (navbar) {
-            if (window.scrollY > 50) navbar.classList.add("scrolled");
-            else navbar.classList.remove("scrolled");
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
-    });
-    updateActiveLink();
+menuToggle.addEventListener("click", () => {
+menuToggle.classList.toggle("active");
+navLinks.classList.toggle("active");
+});
 
-    /* ---------------------------
-       HERO TEXT ROTATOR
-    ----------------------------*/
-    if (textSets.length > 0) {
-      let idx = 0;
-      textSets.forEach((t, i) => t.classList.toggle("active", i === 0));
-      setInterval(() => {
-        textSets[idx].classList.remove("active");
-        idx = (idx + 1) % textSets.length;
-        textSets[idx].classList.add("active");
-      }, 3000);
-    }
+/* Close menu on nav click (mobile) */
+document.querySelectorAll(".nav-link").forEach(link => {
+link.addEventListener("click", () => {
+menuToggle.classList.remove("active");
+navLinks.classList.remove("active");
+});
+});
 
-    /* ---------------------------
-       TABS (Skills etc.)
-    ----------------------------*/
-    if (tabItems.length && contentPanels.length) {
-      tabItems.forEach((tab) => {
-        tab.addEventListener("click", () => {
-          const id = tab.dataset.tab;
-          tabItems.forEach(t => t.classList.remove("active"));
-          tab.classList.add("active");
-          contentPanels.forEach(panel => panel.classList.remove("active"));
-          const panel = document.getElementById(id);
-          if (panel) panel.classList.add("active");
-        });
-        // keyboard
-        tab.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            tab.click();
-          }
-        });
-      });
-    }
+/* -------------------------------
+SECTION HIGHLIGHT ON SCROLL
+---------------------------------- */
+const sections = document.querySelectorAll("section");
+const navItems = document.querySelectorAll(".nav-link");
 
-    /* ---------------------------
-       SMOOTH SCROLL for internal links
-    ----------------------------*/
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-      anchor.addEventListener("click", function (e) {
-        const href = this.getAttribute("href");
-        if (!href || href === "#") return;
-        const target = document.querySelector(href);
-        if (!target) return;
-        e.preventDefault();
-        // close mobile menu if open
-        setMenuOpen(false);
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
+window.addEventListener("scroll", () => {
+let scrollPos = window.scrollY + 150;
 
-    /* ---------------------------
-       PARTICLES (lightweight)
-    ----------------------------*/
-    let particleInterval = null;
-    function createParticle() {
-      if (!particlesContainer) return;
-      const p = document.createElement("div");
-      p.className = "particle";
-      const size = (Math.random() * 3) + 2;
-      p.style.width = `${size}px`;
-      p.style.height = `${size}px`;
-      p.style.position = "absolute";
-      p.style.left = `${Math.random() * 100}%`;
-      p.style.top = `${Math.random() * 100}%`;
-      p.style.opacity = String(0.15 + Math.random() * 0.6);
-      p.style.pointerEvents = "none";
-      particlesContainer.appendChild(p);
-      setTimeout(() => {
-        try { particlesContainer.removeChild(p); } catch (err) {}
-      }, 12000);
-    }
+sections.forEach(sec => {  
+    if (scrollPos > sec.offsetTop && scrollPos < sec.offsetTop + sec.offsetHeight) {  
+        navItems.forEach(link => link.classList.remove("active"));  
+        let activeLink = document.querySelector(`a[href="#${sec.id}"]`);  
+        if (activeLink) activeLink.classList.add("active");  
+    }  
+});
 
-    // start creating particles, but keep light to reduce CPU
-    particleInterval = setInterval(createParticle, 700);
+});
 
-    /* ---------------------------
-       CLEANUP ON UNLOAD
-    ----------------------------*/
-    window.addEventListener("beforeunload", () => {
-      if (particleInterval) clearInterval(particleInterval);
-    });
+/* -------------------------------
+HERO TEXT ROTATOR
+---------------------------------- */
+let textSets = document.querySelectorAll(".text-set");
+let currentTextIndex = 0;
 
-    /* ---------------------------
-       Accessibility helpers: ensure toggle visible on desktop (in case CSS tries to hide)
-    ----------------------------*/
-    (function ensureToggleVisible() {
-      if (themeSwitch) themeSwitch.style.display = ""; // allow CSS to control but unclamp inline hide
-      if (thumb) thumb.style.display = "flex"; // we need emoji visible
-    })();
+function rotateText() {
+textSets[currentTextIndex].classList.remove("active");
+currentTextIndex = (currentTextIndex + 1) % textSets.length;
+textSets[currentTextIndex].classList.add("active");
+}
+setInterval(rotateText, 3500);
 
-    /* ---------------------------
-       Final sync: set thumb emoji according to current theme
-    ----------------------------*/
-    setTimeout(() => setThumbEmoji(isLight()), 10);
+/* -------------------------------
+SKILLS / PROJECTS TABS
+---------------------------------- */
+const tabItems = document.querySelectorAll(".tab-item");
+const contentPanels = document.querySelectorAll(".content-panel");
 
-  }); // DOMContentLoaded
-})();
+tabItems.forEach((tab, index) => {
+tab.addEventListener("click", () => {
+tabItems.forEach(t => t.classList.remove("active"));
+tab.classList.add("active");
+
+contentPanels.forEach(c => c.classList.remove("active"));  
+    contentPanels[index].classList.add("active");  
+});
+
+});
+
+/* -------------------------------
+PARTICLES BACKGROUND ANIMATION
+---------------------------------- */
+function createParticle() {
+let particle = document.createElement("div");
+particle.classList.add("particle");
+
+let size = Math.random() * 4 + 2;  
+particle.style.width = `${size}px`;  
+particle.style.height = `${size}px`;  
+particle.style.left = `${Math.random() * 100}%`;  
+
+document.body.appendChild(particle);  
+
+setTimeout(() => particle.remove(), 15000);
+
+}
+
+setInterval(createParticle, 500);
+
+/* -------------------------------
+SMOOTH SCROLL FOR INTERNAL LINKS
+---------------------------------- */
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener("click", function (e) {
+if (!this.getAttribute("href").startsWith("#")) return;
+e.preventDefault();
+
+document.querySelector(this.getAttribute("href")).scrollIntoView({  
+        behavior: "smooth"  
+    });  
+});
+
+});
+
+/* -------------------------------
+END OF FULL JS FILE
+---------------------------------- */
