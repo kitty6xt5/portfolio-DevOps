@@ -171,26 +171,40 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
-/* ====== GLITCH TEXT LETTER SPLIT ====== */
-function applyGlitchEffect() {
-    const glitchElements = document.querySelectorAll(".glitch-text");
+/* ==========================================================
+   ORIGINAL ELECTRIC XTRA GLITCH LETTER SPLIT
+   ========================================================== */
 
-    glitchElements.forEach(el => {
-        let text = el.innerText.trim();
+function applyGlitchText() {
+    const glitchEls = document.querySelectorAll(".glitch-text");
+
+    glitchEls.forEach(el => {
+        const text = el.innerText;
         el.setAttribute("data-text", text);
 
         let html = "";
-
         for (let i = 0; i < text.length; i++) {
-            let delay = (i * 0.025).toFixed(3);
+            const delay = (i * 0.03).toFixed(2);
             html += `<span style="animation-delay:${delay}s">${text[i]}</span>`;
         }
-
         el.innerHTML = html;
     });
 }
 
-document.addEventListener("DOMContentLoaded", applyGlitchEffect);
+document.addEventListener("DOMContentLoaded", applyGlitchText);
+
+/* ==========================================================
+   ORIGINAL SHAPE FLICKER (behind hero)
+   ========================================================== */
+
+const shapes = document.querySelectorAll(".shape");
+
+shapes.forEach(shape => {
+    shape.style.animation = `
+        float ${4 + Math.random() * 4}s infinite ease-in-out,
+        flicker ${1 + Math.random()}s infinite
+    `;
+});
 
 /* -------------------------------
    END OF FILE
