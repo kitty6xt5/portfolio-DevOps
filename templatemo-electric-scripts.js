@@ -171,6 +171,26 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     });
 });
+/* ====== GLITCH TEXT LETTER SPLIT ====== */
+function applyGlitchEffect() {
+    const glitchElements = document.querySelectorAll(".glitch-text");
+
+    glitchElements.forEach(el => {
+        let text = el.innerText.trim();
+        el.setAttribute("data-text", text);
+
+        let html = "";
+
+        for (let i = 0; i < text.length; i++) {
+            let delay = (i * 0.025).toFixed(3);
+            html += `<span style="animation-delay:${delay}s">${text[i]}</span>`;
+        }
+
+        el.innerHTML = html;
+    });
+}
+
+document.addEventListener("DOMContentLoaded", applyGlitchEffect);
 
 /* -------------------------------
    END OF FILE
